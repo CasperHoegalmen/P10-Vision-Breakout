@@ -8,11 +8,18 @@ public class BlockBehavior : MonoBehaviour
     public GameObject Power_Up_Prefab;
     float[] Power_Up_Spawn_Probability = new float[] { 0, 100 };
     float[] Power_Up_Type_Probability = new float[] { 20, 40, 60, 80, 100 };
+    public GameObject GameManager;
 
+    void Start()
+    {
+        GameManager = GameObject.Find("GameManager");
+    }
+    
     void OnCollisionEnter2D(Collision2D collisionInfo)
     {
         spawn_roulette();
-        Destroy(gameObject);
+        GameManager.GetComponent<GameManager>().Remove_Block();
+        this.gameObject.SetActive(false);
     }
 
     //First rolls to see if power_up spawns. Then rolls to see the type of power_up.
