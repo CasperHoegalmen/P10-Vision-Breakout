@@ -10,9 +10,11 @@ public class RacketMovement : MonoBehaviour
     public Camera mainCam;
     public float Racket_Screen_Pos;
     public int Dead_Space;
+    public Vector2 Current_Gazepoint;
     // Update is called once per frame
     void FixedUpdate()
     {
+        Current_Gazepoint = TobiiAPI.GetGazePoint().Viewport;
         Print_Input();
         Racket_Screen_Pos = mainCam.WorldToScreenPoint(this.gameObject.transform.TransformPoint(this.gameObject.transform.position)).x;
         Gaze_Racket_Input();
@@ -22,11 +24,11 @@ public class RacketMovement : MonoBehaviour
 
     void Gaze_Racket_Input()
     {
-        if (TobiiAPI.GetGazePoint().Screen.x < Racket_Screen_Pos && Racket_Screen_Pos - TobiiAPI.GetGazePoint().Screen.x > Dead_Space)
+        if (Current_Gazepoint.x < Racket_Screen_Pos && Racket_Screen_Pos - Current_Gazepoint.x > Dead_Space)
         {
             Move_Input = -1;
         }
-        else if (TobiiAPI.GetGazePoint().Screen.x > Racket_Screen_Pos && TobiiAPI.GetGazePoint().Screen.x - Racket_Screen_Pos > Dead_Space)
+        else if (Current_Gazepoint.x > Racket_Screen_Pos && Current_Gazepoint.x - Racket_Screen_Pos > Dead_Space)
         {
             Move_Input = 1;
         }
@@ -41,7 +43,7 @@ public class RacketMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             Debug.Log("Racket_Screen_Pos: " + Racket_Screen_Pos);
-            Debug.Log("Gaze Point: " + TobiiAPI.GetGazePoint().Screen.x);
+            Debug.Log("Gaze Point: " + Current_Gazepoint.x);
 
         }
     }

@@ -1,75 +1,104 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Tobii.Gaming;
 
 public class EyeTrackingLog : MonoBehaviour
 {
-    public float Saccade_Detection_Threshold;
-    public Vector2 Eye_Pos;
-    public float Passed_Time;
-    public int Vect_Length_Buffer_Index;
-    public float Interval;
-    public Vector2[] Vect_Length_Buffer;
+    [SerializeField] int index;
+    [SerializeField] Vector2[] Pos_Buffer;
+    [SerializeField] float[] Pos_Difference_Buffer;
+    int[] Cycle_Count;
+    [SerializeField] float Saccade_Threshold;
+    float Prev_Second;
+
     // Start is called before the first frame update
     void Start()
     {
-        Vect_Length_Buffer = new Vector2[20];
+        Saccade_Threshold = 1;
+        Pos_Buffer = new Vector2[2];
+        Pos_Difference_Buffer = new float[2];
+        Cycle_Count = new int[Pos_Difference_Buffer.Length];
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Gaze_Pos_Tracking();
-    }
-
-    private void Detect_Saccade()
-    {
-        for(int i = 0; i <= Vect_Length_Buffer.Length; i++)
+        if(Time.fixedTime > Prev_Second + 0.3f)
         {
-            if (Vect_Length_Buffer[i].x >= Saccade_Detection_Threshold)
-            {
-                Debug.Log("Saccade Detected");
-                Vect_Length_Buffer[i].x = 0;
-            }
+            Detect_Saccade();
+            Prev_Second = Time.fixedTime;
         }
-            
     }
 
-    private void Gaze_Pos_Tracking()
+    void Buffer_Updates()
     {
-        Update_Eye_Pos();
-        Update_Vect_Buffer();
+        Update_Pos_Buffer();
+        Update_Cycle_Count();
+        Update_Pos_Difference_Buffer();
         Update_Index();
     }
-
-    private void Update_Vect_Buffer()
+    void Update_Pos_Buffer()
     {
-        for (int i = 0; i <= Vect_Length_Buffer.Length; i++)
+        Pos_Buffer[index] = GameObject.Find("racket").GetComponent<RacketMovement>().Current_Gazepoint;
+    }
+
+    void Update_Pos_Difference_Buffer()
+    {
+        //Adds up the gaze position difference from last frame. If above 0 adds it to the Pos_Difference buffer.
+        float Current_Difference = 0;
+        if (index > 0)
         {
-            Vect_Length_Buffer[i].y += 0.2f;
-            if (Vect_Length_Buffer[i].y <= Interval)
+            Current_Difference += Mathf.Abs(Pos_Buffer[index - 1].x - Pos_Buffer[index].x);
+            Current_Difference += Mathf.Abs(Pos_Buffer[index - 1].y - Pos_Buffer[index].y);
+        }
+
+        if (index == 0)
+        {
+            Current_Difference += Mathf.Abs(Pos_Buffer[Pos_Buffer.Length - 1].x - Pos_Buffer[index].x);
+            Current_Difference += Mathf.Abs(Pos_Buffer[Pos_Buffer.Length - 1].y - Pos_Buffer[index].y);
+        }
+
+        if(Current_Difference > 0)
+        {
+            Pos_Difference_Buffer[index] += Current_Difference;
+        }
+
+        //Adds the difference of each new position, provided it has a higher Cycle_Count.
+        for (int i = 0; i < Pos_Difference_Buffer.Length - 1; i++)
+       {
+         for(int x = 0; x < Pos_Difference_Buffer.Length - 1; x++ )
             {
-                Vect_Length_Buffer[i].x += Eye_Pos.sqrMagnitude;
+                if (Cycle_Count[x] > Cycle_Count[index])
+                {
+                    Pos_Difference_Buffer[index] += Pos_Difference_Buffer[x];
+                }
             }
-        }
+       }
     }
 
-    private void Update_Index()
+    //Each Va
+    void Update_Cycle_Count()
     {
-        Vect_Length_Buffer_Index += 1;
+        Cycle_Count[index] += 1;
+    }
 
-        if (Vect_Length_Buffer_Index >= Vect_Length_Buffer.Length)
+    void Update_Index()
+    {
+        index++;
+
+        if(index > Pos_Buffer.Length - 1)
         {
-            Vect_Length_Buffer_Index = 0;
+            index = 0;
         }
     }
 
-    private void Update_Eye_Pos()
+    void Detect_Saccade()
     {
-        Eye_Pos = TobiiAPI.GetGazePoint().Screen;
+        Buffer_Updates();
+        if (Pos_Difference_Buffer[index] >= Saccade_Threshold)
+        {
+            Debug.Log("Saccade Detected with Value: " + Pos_Difference_Buffer[index]);
+        }
     }
-
-
-
 }
