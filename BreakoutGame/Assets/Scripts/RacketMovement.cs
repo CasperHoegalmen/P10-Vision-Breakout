@@ -9,43 +9,32 @@ public class RacketMovement : MonoBehaviour
     public int Move_Input;
     public Camera mainCam;
     public float Racket_Screen_Pos;
-    public int Dead_Space;
     public Vector2 Current_Gazepoint;
     // Update is called once per frame
     void FixedUpdate()
     {
-        Current_Gazepoint = TobiiAPI.GetGazePoint().Viewport;
-        Print_Input();
-        Racket_Screen_Pos = mainCam.WorldToScreenPoint(this.gameObject.transform.TransformPoint(this.gameObject.transform.position)).x;
+        Current_Gazepoint = mainCam.ViewportToWorldPoint(TobiiAPI.GetGazePoint().Viewport)*1.8f;
+        Racket_Screen_Pos = this.gameObject.transform.TransformPoint(this.gameObject.transform.position).x;
         Gaze_Racket_Input();
-        //        float horizontalInput = Input.GetAxisRaw("Horizontal");
         GetComponent<Rigidbody2D>().velocity = Vector2.right * Move_Input * speed;
+        Debug.Log("Current Gazepoint: " + Current_Gazepoint + " VS Racket Point: " + Racket_Screen_Pos);
     }
 
     void Gaze_Racket_Input()
     {
-        if (Current_Gazepoint.x < Racket_Screen_Pos && Racket_Screen_Pos - Current_Gazepoint.x > Dead_Space)
+        if (Current_Gazepoint.x < Racket_Screen_Pos)
         {
             Move_Input = -1;
+            Debug.Log("Left" + " Current Gazepoint: " + Current_Gazepoint + " VS Racket Point: " + Racket_Screen_Pos);
         }
-        else if (Current_Gazepoint.x > Racket_Screen_Pos && Current_Gazepoint.x - Racket_Screen_Pos > Dead_Space)
+        else if (Current_Gazepoint.x > Racket_Screen_Pos)
         {
             Move_Input = 1;
+            Debug.Log("Right" + " Current Gazepoint: " + Current_Gazepoint + " VS Racket Point: " + Racket_Screen_Pos);
         }
         else
         {
             Move_Input = 0;
         }
     }
-
-    void Print_Input()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("Racket_Screen_Pos: " + Racket_Screen_Pos);
-            Debug.Log("Gaze Point: " + Current_Gazepoint.x);
-
-        }
-    }
-
 }

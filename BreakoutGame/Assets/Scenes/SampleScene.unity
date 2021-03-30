@@ -1711,7 +1711,7 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 0
+  m_TargetEye: 3
   m_HDR: 1
   m_AllowMSAA: 0
   m_AllowDynamicResolution: 0
@@ -3982,7 +3982,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 4
+  m_Constraints: 6
 --- !u!61 &1240450451
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4025,7 +4025,6 @@ MonoBehaviour:
   Move_Input: 0
   mainCam: {fileID: 519420031}
   Racket_Screen_Pos: 0
-  Dead_Space: 8
   Current_Gazepoint: {x: 0, y: 0}
 --- !u!1001 &1242035464
 PrefabInstance:
@@ -6217,10 +6216,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6edd1cf1f2b559479861ae7cbda2e1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 0
   Pos_Buffer: []
-  Pos_Difference_Buffer: []
-  Saccade_Threshold: 0
+  Saccade_Threshold: 1
 --- !u!1 &1987961884
 GameObject:
   m_ObjectHideFlags: 0
