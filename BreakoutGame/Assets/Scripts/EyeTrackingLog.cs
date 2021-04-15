@@ -48,7 +48,7 @@ public class EyeTrackingLog : MonoBehaviour
         Buffer_Updates();
         if (Current_Difference >= Saccade_Threshold)
         {
-           // Debug.Log("Saccade Detected with Value: " + Current_Difference);
+          Debug.Log("Saccade Detected with Value: " + Current_Difference);
         }
 
         Current_Difference = 0;

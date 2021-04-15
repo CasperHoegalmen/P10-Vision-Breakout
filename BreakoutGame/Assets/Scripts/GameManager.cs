@@ -8,12 +8,18 @@ public class GameManager : MonoBehaviour
 {
     public int Score;
     public int Remaining_Blocks = 75;
+    public GameObject Ball;
     public GameObject Block_Manager;
     public TextMeshProUGUI Score_UI;
 
     void Start()
     {
         Score_UI = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
+    }
+
+    private void Update()
+    {
+        Game_Over();
     }
 
     public void Remove_Block()
@@ -28,6 +34,14 @@ public class GameManager : MonoBehaviour
             foreach (Transform child in Block_Manager.transform)
                 foreach (Transform grand_child in child)
                     grand_child.gameObject.SetActive(true);
+        }
+    }
+    
+    void Game_Over()
+    {
+        if(Ball.transform.position.y < -200)
+        {
+            Debug.Log("Game Over");
         }
     }
 }

@@ -33,7 +33,7 @@ public class BlockBehavior : MonoBehaviour
 
         else if (Spawn_Roll <= Power_Up_Spawn_Probability[1])
         {
-            Spawn_Power_Up();
+            //Spawn_Power_Up();
         }
 
     }

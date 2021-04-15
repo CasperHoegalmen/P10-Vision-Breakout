@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class BallMovement : MonoBehaviour
 {
+    public AudioSource Collision_Sound;
     public float speed = 100.0f;
     // Start is called before the first frame update
    
@@ -26,10 +27,11 @@ public class BallMovement : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D col)
     {
+        Collision_Sound.Play();
         //Increase Speed on block collision
-        if(col.gameObject.name != "border_right" || col.gameObject.name != "border_left" || col.gameObject.name != "border_top" || col.gameObject.name != "racket")
+        if (col.gameObject.name != "border_right" || col.gameObject.name != "border_left" || col.gameObject.name != "border_top" || col.gameObject.name != "racket")
         {
-            speed += 0.5f;
+            speed += 3f;
         }
         //Direction setting on hitting racket
         if (col.gameObject.name == "racket")
