@@ -22,6 +22,13 @@ public class BlockBehavior : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
+    void OnTriggerEnter2D(Collider2D collisionInfo)
+    {
+        spawn_roulette();
+        GameManager.GetComponent<GameManager>().Remove_Block();
+        this.gameObject.SetActive(false);
+    }
+
     //First rolls to see if power_up spawns. Then rolls to see the type of power_up.
     void spawn_roulette()
     {

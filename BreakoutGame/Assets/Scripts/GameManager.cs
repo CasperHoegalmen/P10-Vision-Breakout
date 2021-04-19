@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class GameManager : MonoBehaviour
@@ -41,7 +42,8 @@ public class GameManager : MonoBehaviour
     {
         if(Ball.transform.position.y < -200)
         {
-            Debug.Log("Game Over");
+            //GameObject.Find("Score").GetComponent<ScoreManager>().Gathered_Score = Score;
+            SceneManager.LoadScene("End");
         }
     }
 }

@@ -144,8 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa8b00853db59244f803fcef92c7a3f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ball: {fileID: 0}
-  racket: {fileID: 0}
+  Game_Manager: {fileID: 0}
   Assigned_Power_Up: 
 --- !u!82 &5491905187642981750
 AudioSource:

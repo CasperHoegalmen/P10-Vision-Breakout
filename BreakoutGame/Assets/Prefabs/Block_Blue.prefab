@@ -98,9 +98,7 @@ MonoBehaviour:
   Additional_Spawn_Chance: 0
   Power_Up_Prefab: {fileID: 7930474024267466825, guid: d47567bd2bed5c64e8017b567c8728f2,
     type: 3}
-  Power_Up_Spawn_Probability:
-  - 85
-  - 100
+  GameManager: {fileID: 0}
 --- !u!61 &7765400788745563494
 BoxCollider2D:
   m_ObjectHideFlags: 0

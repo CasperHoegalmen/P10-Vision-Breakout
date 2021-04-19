@@ -6,13 +6,37 @@ public class BallMovement : MonoBehaviour
 {
     public AudioSource Collision_Sound;
     public float speed = 100.0f;
+    private float Timer;
+    float Sticky_Timer;
     // Start is called before the first frame update
-   
+
 
     void Start()
     {
         GetComponent<Rigidbody2D>().velocity = Vector2.up * speed;
     }
+
+    void Update()
+    {
+        Timer_Update();
+        Simulate_Rigidbody();
+    }
+
+    void Timer_Update()
+    {
+       if(Timer + 1.0f <= Time.fixedTime)
+        {
+            Timer = Time.fixedTime;
+            Update_Speed();
+        }
+       
+    }
+
+    void Update_Speed()
+    {
+        speed += 0.75f;
+    }
+
 
     float hitFactor(Vector2 ballPos, Vector2 racketPos,
                 float racketWidth)
@@ -28,11 +52,6 @@ public class BallMovement : MonoBehaviour
     void OnCollisionEnter2D(Collision2D col)
     {
         Collision_Sound.Play();
-        //Increase Speed on block collision
-        if (col.gameObject.name != "border_right" || col.gameObject.name != "border_left" || col.gameObject.name != "border_top" || col.gameObject.name != "racket")
-        {
-            speed += 3f;
-        }
         //Direction setting on hitting racket
         if (col.gameObject.name == "racket")
         {
@@ -41,5 +60,18 @@ public class BallMovement : MonoBehaviour
             GetComponent<Rigidbody2D>().velocity = dir * speed;
         }
         
+        if (GameObject.Find("GameManager").GetComponent<Random_Power_Up_Manager>().Sticky_Racket_Active == true)
+        {
+            Sticky_Timer = Time.fixedTime;
+            this.gameObject.GetComponent<Rigidbody2D>().simulated = false;
+        }
+    }
+
+    void Simulate_Rigidbody()
+    {
+        if(Sticky_Timer + 3.0f >= Time.fixedTime)
+        {
+            this.gameObject.GetComponent<Rigidbody2D>().simulated = true;
+        }
     }
 }
