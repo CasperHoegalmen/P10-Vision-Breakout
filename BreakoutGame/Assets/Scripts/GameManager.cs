@@ -7,15 +7,15 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
-    public int Score;
+    public GameObject Score;
     public int Remaining_Blocks = 75;
     public GameObject Ball;
     public GameObject Block_Manager;
-    public TextMeshProUGUI Score_UI;
+
 
     void Start()
     {
-        Score_UI = GameObject.Find("Score").GetComponent<TextMeshProUGUI>();
+        Score = GameObject.Find("Final_Score");
     }
 
     private void Update()
@@ -26,8 +26,7 @@ public class GameManager : MonoBehaviour
     public void Remove_Block()
     {
         Remaining_Blocks -= 1;
-        Score += 100;
-        Score_UI.text = "Score: " + Score;
+        Score.GetComponent<ScoreManager>().Add_Score();
 
         if(Remaining_Blocks <= 0)
         {
@@ -42,7 +41,6 @@ public class GameManager : MonoBehaviour
     {
         if(Ball.transform.position.y < -200)
         {
-            //GameObject.Find("Score").GetComponent<ScoreManager>().Gathered_Score = Score;
             SceneManager.LoadScene("End");
         }
     }

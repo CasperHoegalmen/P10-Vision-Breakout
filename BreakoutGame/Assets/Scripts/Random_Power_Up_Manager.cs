@@ -25,15 +25,16 @@ public class Random_Power_Up_Manager : MonoBehaviour
     public bool Sticky_Racket_Active;
     public float Sticky_Racket_Timer;
     public int Paddle_Size;
-    private ArrayList Blocks = new ArrayList();
+    public GameObject[] Blocks = new GameObject[45];
     // Start is called before the first frame update
 
     private void Start()
     {
         Spawn_Chance = (float)Random.Range(0, Spawn_Frequency);
-        Power_Up_Type_Probability = new float[] { 20, 40, 60, 80, 100, 120, 140 };
+        Power_Up_Type_Probability = new float[] { 0, 0, 0, 0, 120, 0 };
         ball = GameObject.Find("ball");
         racket = GameObject.Find("racket");
+        Get_Block_Arrays();
     }
 
     void Update()
@@ -137,7 +138,7 @@ public class Random_Power_Up_Manager : MonoBehaviour
                 break;
 
             case "Sticky_Racket":
-                Sticky_Racket_Timer = Time.fixedTime + 15;
+                Sticky_Racket_Timer = Time.fixedTime + 15.0f;
                 Sticky_Racket_Active = true;
                 break;
 
@@ -160,11 +161,34 @@ public class Random_Power_Up_Manager : MonoBehaviour
         }
     }
 
+
     void Get_Block_Arrays()
     {
-        foreach (Transform child in GameObject.Find("Block_Manager").transform)
+        int i = 0;
+        foreach (Transform child in GameObject.Find("BlockManager_Red").transform)
         {
-            Blocks.Add(child.parent.gameObject);
+            Blocks[i] = child.gameObject;
+            i++;
+        }
+        foreach (Transform child in GameObject.Find("BlockManager_Grey").transform)
+        {
+            Blocks[i] = child.gameObject;
+            i++;
+        }
+        foreach (Transform child in GameObject.Find("BlockManager_Blue").transform)
+        {
+            Blocks[i] = child.gameObject;
+            i++;
+        }
+        foreach (Transform child in GameObject.Find("BlockManager_Purple").transform)
+        {
+            Blocks[i] = child.gameObject;
+            i++;
+        }
+        foreach (Transform child in GameObject.Find("BlockManager_Green").transform)
+        {
+            Blocks[i] = child.gameObject;
+            i++;
         }
     }
 }
