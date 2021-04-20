@@ -31,7 +31,7 @@ public class Random_Power_Up_Manager : MonoBehaviour
     private void Start()
     {
         Spawn_Chance = (float)Random.Range(0, Spawn_Frequency);
-        Power_Up_Type_Probability = new float[] { 0, 0, 0, 0, 120, 0 };
+        Power_Up_Type_Probability = new float[] { 20, 40, 60, 80, 100, 120 };
         ball = GameObject.Find("ball");
         racket = GameObject.Find("racket");
         Get_Block_Arrays();
