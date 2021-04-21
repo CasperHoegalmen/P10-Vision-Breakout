@@ -25,13 +25,13 @@ public class Random_Power_Up_Manager : MonoBehaviour
     public bool Sticky_Racket_Active;
     public float Sticky_Racket_Timer;
     public int Paddle_Size;
-    public GameObject[] Blocks = new GameObject[45];
+    public GameObject[] Blocks = new GameObject[40];
     // Start is called before the first frame update
 
     private void Start()
     {
         Spawn_Chance = (float)Random.Range(0, Spawn_Frequency);
-        Power_Up_Type_Probability = new float[] { 20, 40, 60, 80, 100, 120 };
+        Power_Up_Type_Probability = new float[] { 0, 0, 0, 0, 120, 0 };
         ball = GameObject.Find("ball");
         racket = GameObject.Find("racket");
         Get_Block_Arrays();
