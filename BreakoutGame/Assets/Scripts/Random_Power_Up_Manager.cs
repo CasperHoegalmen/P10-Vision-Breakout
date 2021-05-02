@@ -25,16 +25,20 @@ public class Random_Power_Up_Manager : MonoBehaviour
     public bool Sticky_Racket_Active;
     public float Sticky_Racket_Timer;
     public int Paddle_Size;
-    public GameObject[] Blocks = new GameObject[40];
+    public List<GameObject> Blocks;
+    private GameObject Power_Up_Manager;
+    private int Power_Up_ID_Stamp;
     // Start is called before the first frame update
 
     private void Start()
     {
+        Blocks = new List<GameObject>();
+        Power_Up_Manager = GameObject.Find("Power_Up_Manager");
         Spawn_Chance = (float)Random.Range(0, Spawn_Frequency);
-        Power_Up_Type_Probability = new float[] { 0, 0, 0, 0, 120, 0 };
+        Power_Up_Type_Probability = new float[] { 20, 20, 20, 20, 20, 20 };
         ball = GameObject.Find("ball");
         racket = GameObject.Find("racket");
-        Get_Block_Arrays();
+        Populate_Block_List();
     }
 
     void Update()
@@ -55,28 +59,54 @@ public class Random_Power_Up_Manager : MonoBehaviour
 
         if (Power_Up_Roll <= Power_Up_Type_Probability[0])
         {
-            Instantiate(Slow, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Slow_Ball";
+            GameObject var = Instantiate(Slow, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Slow_Ball";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
         else if (Power_Up_Roll <= Power_Up_Type_Probability[1])
         {
-            Instantiate(Fast, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Fast_Ball";
+            GameObject var = Instantiate(Fast, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Fast_Ball";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
         else if (Power_Up_Roll <= Power_Up_Type_Probability[2] && Paddle_Size < 4)
         {
-            Instantiate(Enlarge, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Large_Racket";
+            GameObject var = Instantiate(Enlarge, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Large_Racket";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
         else if (Power_Up_Roll <= Power_Up_Type_Probability[3] && Paddle_Size > -4)
         {
-            Instantiate(Shrink, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Small_Racket";
+            GameObject var = Instantiate(Shrink, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Small_Racket";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
         else if (Power_Up_Roll <= Power_Up_Type_Probability[4])
         {
-            Instantiate(Destructor, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Destructor";
+            GameObject var = Instantiate(Destructor, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Destructor";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
         else if (Power_Up_Roll <= Power_Up_Type_Probability[5])
         {
-            Instantiate(Sticky_Paddle, Spawn_Pos, Quaternion.identity).GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Sticky_Racket";
+            GameObject var = Instantiate(Sticky_Paddle, Spawn_Pos, Quaternion.identity);
+            var.GetComponent<Power_Up_Behavior>().Assigned_Power_Up = "Sticky_Racket";
+            var.GetComponent<Power_Up_Behavior>().Power_Up_ID = Power_Up_ID_Stamp;
+            var.transform.parent = Power_Up_Manager.transform;
+            GameObject.Find("GameManager").GetComponent<EyeTrackingLog>().Power_Up_List.Add(var);
         }
+
+        Power_Up_ID_Stamp++;
     }
 
 
@@ -84,7 +114,7 @@ public class Random_Power_Up_Manager : MonoBehaviour
     {
         Spawn_Pos_X = Random.Range(-170, 170);
         Spawn_Pos = new Vector3(Spawn_Pos_X, 250, 0);
-        Power_Up_Roll = Random.Range(0, 140);
+        Power_Up_Roll = Random.Range(0, 120);
     }
 
     void Reset_Timer()
@@ -162,33 +192,27 @@ public class Random_Power_Up_Manager : MonoBehaviour
     }
 
 
-    void Get_Block_Arrays()
+    void Populate_Block_List()
     {
-        int i = 0;
         foreach (Transform child in GameObject.Find("BlockManager_Red").transform)
         {
-            Blocks[i] = child.gameObject;
-            i++;
+            Blocks.Add(child.gameObject);
         }
         foreach (Transform child in GameObject.Find("BlockManager_Grey").transform)
         {
-            Blocks[i] = child.gameObject;
-            i++;
+            Blocks.Add(child.gameObject);
         }
         foreach (Transform child in GameObject.Find("BlockManager_Blue").transform)
         {
-            Blocks[i] = child.gameObject;
-            i++;
+            Blocks.Add(child.gameObject);
         }
         foreach (Transform child in GameObject.Find("BlockManager_Purple").transform)
         {
-            Blocks[i] = child.gameObject;
-            i++;
+            Blocks.Add(child.gameObject);
         }
         foreach (Transform child in GameObject.Find("BlockManager_Green").transform)
         {
-            Blocks[i] = child.gameObject;
-            i++;
+            Blocks.Add(child.gameObject);
         }
     }
 }

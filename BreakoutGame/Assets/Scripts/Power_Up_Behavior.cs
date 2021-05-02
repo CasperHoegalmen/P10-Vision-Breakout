@@ -7,6 +7,7 @@ public class Power_Up_Behavior : MonoBehaviour
 
     public GameObject Game_Manager;
     public string Assigned_Power_Up;
+    public int Power_Up_ID;
 
 
     void Start()
@@ -32,6 +33,7 @@ public class Power_Up_Behavior : MonoBehaviour
     {
         GameObject.Find("Power_Up_Audio").GetComponent<AudioSource>().Play();
         Game_Manager.GetComponent<Random_Power_Up_Manager>().grant_Buff(Assigned_Power_Up);
+        Game_Manager.GetComponent<EyeTrackingLog>().Power_Up_List.Remove(gameObject);
         Destroy(gameObject);
     }
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7075716219232396586}
   - component: {fileID: 7075716219232396587}
   - component: {fileID: 7075716219232396588}
+  - component: {fileID: 8568855878313395964}
   m_Layer: 8
   m_Name: Block_Red
   m_TagString: Untagged
@@ -125,3 +126,16 @@ MonoBehaviour:
   Power_Up_Prefab: {fileID: 7930474024267466825, guid: d47567bd2bed5c64e8017b567c8728f2,
     type: 3}
   GameManager: {fileID: 0}
+--- !u!114 &8568855878313395964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7075716219232396589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4f9c1ce2e543a845b493bc5963e48b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Timer: 0

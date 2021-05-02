@@ -8,7 +8,6 @@ public class Start_Button_Behavior : MonoBehaviour
 
     public void OnButtonPress()
     {
-        SceneManager.LoadScene("Main");
-        Debug.Log("Hello");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

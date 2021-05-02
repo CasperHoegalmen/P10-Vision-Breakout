@@ -11,37 +11,42 @@ public class GameManager : MonoBehaviour
     public int Remaining_Blocks = 75;
     public GameObject Ball;
     public GameObject Block_Manager;
+    float Game_Timer;
+    float Prev_Time;
 
 
     void Start()
     {
         Score = GameObject.Find("Final_Score");
+        Game_Timer = 20.0f;
+        Prev_Time = Game_Timer;
     }
 
     private void Update()
     {
         Game_Over();
+
+        Game_Timer -= Time.deltaTime;
+
+        if (Prev_Time - 1.0f > Game_Timer)
+        {
+            GameObject.Find("Time").GetComponent<TextMeshProUGUI>().SetText("Time:  " + (int)Game_Timer);
+            Prev_Time = Game_Timer;
+        }
+        
+
     }
 
     public void Remove_Block()
     {
-        Remaining_Blocks -= 1;
         Score.GetComponent<ScoreManager>().Add_Score();
-
-        if(Remaining_Blocks <= 0)
-        {
-            Remaining_Blocks = 75;
-            foreach (Transform child in Block_Manager.transform)
-                foreach (Transform grand_child in child)
-                    grand_child.gameObject.SetActive(true);
-        }
     }
     
     void Game_Over()
     {
-        if(Ball.transform.position.y < -200)
+        if(Ball.transform.position.y < -200 || Game_Timer <= 0.0f)
         {
-            SceneManager.LoadScene("End");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
