@@ -126,7 +126,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 1
   m_AngularDrag: 0
-  m_GravityScale: 5
+  m_GravityScale: 15
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -146,6 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Game_Manager: {fileID: 0}
   Assigned_Power_Up: 
+  Power_Up_ID: 0
 --- !u!82 &5491905187642981750
 AudioSource:
   m_ObjectHideFlags: 0

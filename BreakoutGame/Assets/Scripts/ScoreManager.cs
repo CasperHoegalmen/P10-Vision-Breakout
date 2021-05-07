@@ -36,6 +36,12 @@ public class ScoreManager : MonoBehaviour
         Score_UI.text = "Score: " + Gathered_Score;
     }
 
+    public void Death_Score_Detraction()
+    {
+        Gathered_Score -= 500;
+        Score_UI.text = "Score: " + Gathered_Score;
+    }
+
     void Awake()
     {
         

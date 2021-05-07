@@ -19,7 +19,7 @@ public class BlockBehavior : MonoBehaviour
     {
         spawn_roulette();
         GameManager.GetComponent<GameManager>().Remove_Block();
-        this.gameObject.SetActive(false);
+        Destroy(gameObject);
     }
 
     void OnTriggerEnter2D(Collider2D collisionInfo)

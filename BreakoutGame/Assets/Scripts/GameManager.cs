@@ -18,13 +18,14 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         Score = GameObject.Find("Final_Score");
-        Game_Timer = 20.0f;
+        Game_Timer = 90.0f;
         Prev_Time = Game_Timer;
     }
 
     private void Update()
     {
         Game_Over();
+        Death();
 
         Game_Timer -= Time.deltaTime;
 
@@ -41,12 +42,27 @@ public class GameManager : MonoBehaviour
     {
         Score.GetComponent<ScoreManager>().Add_Score();
     }
+
+    void Death()
+    {
+        if(Ball.transform.position.y < -200)
+        {
+            gameObject.GetComponent<EyeTrackingLog>().Death_Count += 1;
+            Score.GetComponent<ScoreManager>().Death_Score_Detraction();
+            Ball.GetComponent<Rigidbody2D>().velocity = Vector2.up * Ball.GetComponent<BallMovement>().speed;
+            Ball.transform.position = new Vector3(531, 311, 0);
+        }
+    }
     
     void Game_Over()
     {
-        if(Ball.transform.position.y < -200 || Game_Timer <= 0.0f)
+        if(Game_Timer <= 0.0f)
         {
+            gameObject.GetComponent<EyeTrackingLog>().Write_To_File();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
+
+
+
     }
 }

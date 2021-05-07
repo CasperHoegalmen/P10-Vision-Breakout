@@ -7,12 +7,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 50890834684913460, guid: d47567bd2bed5c64e8017b567c8728f2,
+        type: 3}
+      propertyPath: Assigned_Power_Up
+      value: Sticky_Paddle
+      objectReference: {fileID: 0}
     - target: {fileID: 1650241806478277176, guid: d47567bd2bed5c64e8017b567c8728f2,
         type: 3}
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: e0086363fbc811443bfc193505df7ebf,
         type: 3}
+    - target: {fileID: 2103486625369248500, guid: d47567bd2bed5c64e8017b567c8728f2,
+        type: 3}
+      propertyPath: m_GravityScale
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4355373892673217881, guid: d47567bd2bed5c64e8017b567c8728f2,
         type: 3}
       propertyPath: m_SpriteTilingProperty.oldSize.x
@@ -81,12 +91,12 @@ PrefabInstance:
     - target: {fileID: 7046315050320201184, guid: d47567bd2bed5c64e8017b567c8728f2,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 3.5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7046315050320201184, guid: d47567bd2bed5c64e8017b567c8728f2,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 3.5
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 7930474024267466825, guid: d47567bd2bed5c64e8017b567c8728f2,
         type: 3}

@@ -1,0 +1,62 @@
+
+
+Level 1 Gaze Logging
+Ball: 9.434572
+Racket: 0.12824
+Blocks: 12.95746
+Slow: 1.127877
+Fast: 0
+Enlarge: 0
+Shrink: 0
+Destructor: 0
+Sticky: 0
+
+
+Level 1 Gaze Logging
+Ball: 57.07327
+Racket: 1.393127
+Blocks: 58.05551
+Slow: 1.551615
+Fast: 0.7214298
+Enlarge: 0
+Shrink: 0.1821303
+Destructor: 0
+Sticky: 0
+
+
+Level 1 Gaze Logging
+Ball: 7.803787
+Racket: 0
+Blocks: 82.41866
+Slow: 0.3254631
+Fast: 0.1826381
+Enlarge: 0.6537517
+Shrink: 0
+Destructor: 0
+Sticky: 0
+
+
+Level 1 Gaze Logging
+Ball: 12.92464
+Racket: 0
+Blocks: 0
+Slow: 0
+Fast: 0
+Enlarge: 0
+Shrink: 0
+Destructor: 0
+Sticky: 0
+
+
+Level 1 Gaze Logging
+Ball: 8.746121
+Racket: 0
+Blocks: 0
+Slow: 0
+Fast: 0
+Enlarge: 0
+Shrink: 0
+Destructor: 0
+Sticky: 0
+
+

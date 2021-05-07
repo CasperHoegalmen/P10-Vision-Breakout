@@ -5,7 +5,8 @@ using UnityEngine;
 public class BallMovement : MonoBehaviour
 {
     public AudioSource Collision_Sound;
-    public float speed = 100.0f;
+    public float speed;
+    float Speed_Growth = 4.0f;
     private float Timer;
     float Sticky_Timer;
     float Sticky_Cooldown_Timer;
@@ -37,7 +38,7 @@ public class BallMovement : MonoBehaviour
 
     void Update_Speed()
     {
-        speed += 0.75f;
+        speed += Speed_Growth;
     }
 
 
@@ -64,8 +65,8 @@ public class BallMovement : MonoBehaviour
 
             if (GameObject.Find("GameManager").GetComponent<Random_Power_Up_Manager>().Sticky_Racket_Active == true && Sticky_Cooldown_Timer <= Time.fixedTime)
             {
-                Sticky_Timer = Time.fixedTime + 3.0f;
-                Sticky_Cooldown_Timer = Time.fixedTime + 5.0f;
+                Sticky_Timer = Time.fixedTime + 2.0f;
+                Sticky_Cooldown_Timer = Time.fixedTime + 4.0f;
                 racket.GetComponent<RacketMovement>().Sticky_Offset.x = racket.transform.position.x - this.gameObject.transform.position.x;
                 this.gameObject.GetComponent<Rigidbody2D>().simulated = false;
             }
